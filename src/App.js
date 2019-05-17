@@ -12,7 +12,7 @@ export class App extends Component{
 
 getAll(){
   const request = new XMLHttpRequest();
-  const url = 'http://localhost:8888/tasks/getAllTasks';
+  const url = '/tasks/getAllTasks';
   request.open("GET",url);
   request.responseType='json';
   request.setRequestHeader("content-Type","application/json");
@@ -27,14 +27,14 @@ getAll(){
 
 
 componentDidMount(){
-  axios.get('http://localhost:8888/tasks/getAllTasks')
+  axios.get('/tasks/getAllTasks')
   .then(res=>this.setState({tasks:res.data}));
 }
 
 
 
 markComplete = (tId) => {
- axios.put(`http://localhost:8888/tasks/update/${tId}`)
+ axios.put(`http://35.246.111.219:8888/tasks/update/${tId}`)
  .then(this.setState({tasks:this.state.tasks.map(task=>{
    if(task.tId===tId){
      task.completed=!task.completed
@@ -44,14 +44,14 @@ markComplete = (tId) => {
 }
 
 deleteTask = (tId) => {
-  axios.delete(`http://localhost:8888/tasks/deleteTask/${tId}`)
+  axios.delete(`http://35.246.111.219:8888/tasks/deleteTask/${tId}`)
     .then(res=>this.setState({tasks:[...this.state.tasks.filter(task => task.tId!==tId)]}));
 }
 
 addTask=(statement)=>{
-  axios.post('http://localhost:8888/tasks/addTask',{statement})
+  axios.post('http://35.246.111.219:8888/tasks/addTask',{statement})
     .then(res=>this.setState({tasks:[...this.state.tasks, res.data]}))
-    .then(axios.get('http://localhost:8888/tasks/getAllTasks')
+    .then(axios.get('http://35.246.111.219:8888/tasks/getAllTasks')
     .then(res=>this.setState({tasks:res.data})));
 }
 
