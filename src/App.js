@@ -34,7 +34,7 @@ componentDidMount(){
 
 
 markComplete = (tId) => {
- axios.put(`http://35.246.111.219:8888/tasks/update/${tId}`)
+ axios.put(`/tasks/update/${tId}`)
  .then(this.setState({tasks:this.state.tasks.map(task=>{
    if(task.tId===tId){
      task.completed=!task.completed
@@ -44,14 +44,14 @@ markComplete = (tId) => {
 }
 
 deleteTask = (tId) => {
-  axios.delete(`http://35.246.111.219:8888/tasks/deleteTask/${tId}`)
+  axios.delete(`/tasks/deleteTask/${tId}`)
     .then(res=>this.setState({tasks:[...this.state.tasks.filter(task => task.tId!==tId)]}));
 }
 
 addTask=(statement)=>{
-  axios.post('http://35.246.111.219:8888/tasks/addTask',{statement})
+  axios.post('/tasks/addTask',{statement})
     .then(res=>this.setState({tasks:[...this.state.tasks, res.data]}))
-    .then(axios.get('http://35.246.111.219:8888/tasks/getAllTasks')
+    .then(axios.get('/tasks/getAllTasks')
     .then(res=>this.setState({tasks:res.data})));
 }
 
